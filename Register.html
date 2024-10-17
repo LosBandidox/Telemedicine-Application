@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Telemedicine Services - Register</h1>
+    </header>
+
+    <main>
+        <section id="content">
+            <!-- Registration Form and Summary -->
+            <form id="registrationForm" onsubmit="return validateRegistration()">
+                <h3>Register</h3>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br><br>
+
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" required><br><br>
+
+                <label for="confirmPassword">Confirm Password:</label><br>
+                <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+
+                <label for="age">Age:</label><br>
+                <input type="number" id="age" name="age" required><br><br>
+
+                <label for="gender">Gender:</label><br>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label>
+                <input type="radio" id="other" name="gender" value="other">
+                <label for="other">Other</label><br><br>
+
+                <label for="country">Country:</label><br>
+                <select id="country" name="country">
+                    <option value="">Select Country</option>
+                    <option value="usa">United States</option>
+                    <option value="canada">Canada</option>
+                    <option value="uk">United Kingdom</option>
+                </select><br><br>
+
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms"> I agree to the terms and conditions</label><br><br>
+
+                <input type="submit" value="Register">
+            </form>
+
+            <!-- Form Summary -->
+            <section id="formSummary">
+                <h2>Form Summary</h2>
+                <p id="summary"></p>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

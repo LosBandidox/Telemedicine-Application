@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Doctor Schedule</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Telemedicine - Manage Doctor Schedule</h1>
+    </header>
+
+    <main>
+        <section id="content">
+            <h3>Manage Your Schedule and Availability</h3>
+            <form id="scheduleForm" onsubmit="return updateSchedule()">
+                <label for="specialization">Specialization:</label><br>
+                <input type="text" id="specialization" name="specialization" readonly value="Cardiologist"><br><br>
+
+                <label for="availability">Available Time Slots:</label><br>
+                <div id="timeSlots">
+                    <!-- Time slots will be managed dynamically -->
+                </div>
+                <button type="button" onclick="addTimeSlot()">Add Time Slot</button><br><br>
+
+                <input type="submit" value="Update Schedule">
+            </form>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

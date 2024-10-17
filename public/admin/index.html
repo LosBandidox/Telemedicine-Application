@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 10px;
+            text-align: center;
+            color: white;
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+        }
+        nav a {
+            padding: 14px 20px;
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+        }
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .form-container {
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Admin Panel</h1>
+</header>
+
+<nav>
+    <a href="#" onclick="showSection('doctors')">Manage Doctors</a>
+    <a href="#" onclick="showSection('appointments')">View Appointments</a>
+    <a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<div class="container">
+    <section id="doctors" style="display: none;">
+        <h2>Manage Doctors</h2>
+        <table id="doctorTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Schedule</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Doctor rows will be dynamically added here -->
+            </tbody>
+        </table>
+
+        <div class="form-container">
+            <h3>Add New Doctor</h3>
+            <div class="form-group">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name">
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name">
+            </div>
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <input type="text" id="specialization">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" id="phone">
+            </div>
+            <div class="form-group">
+                <label for="schedule">Schedule:</label>
+                <input type="text" id="schedule">
+            </div>
+            <div class="form-group">
+                <button onclick="addDoctor()">Add Doctor</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="appointments" style="display: none;">
+        <h2>View Appointments</h2>
+        <table id="appointmentTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doctor</th>
+                    <th>Patient</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Appointment rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+</div>
+
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('section').forEach(section => {
+            section.style.display = 'none';
+        });
+        document.getElementById(sectionId).style.display = 'block';
+    }
+
+    function loadDoctors() {
+        fetch('/admin/doctors')
+            .then(response => response.json())
+            .then(data => {
+                const doctorTableBody = document.querySelector('#doctorTable tbody');
+                doctorTableBody.innerHTML = '';
+                data.forEach(doctor => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${doctor.id}</td>
+                        <td>${doctor.first_name} ${doctor.last_name}</td>
+                        <td>${doctor.specialization}</td>
+                        <td>${doctor.email}</td>
+                        <td>${doctor.phone}</td>
+                        <td>${doctor.schedule}</td>
+                        <td>
+                            <button onclick="deleteDoctor(${doctor.id})">Delete</button>
+                        </td>
+                    `;
+                    doctorTableBody.appendChild(row);
+                });
+            });
+    }
+
+    function addDoctor() {
+        const doctor = {
+            first_name: document.getElementById('first_name').value,
+            last_name: document.getElementById('last_name').value,
+            specialization: document.getElementById('specialization').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            schedule: document.getElementById('schedule').value
+        };
+
+        fetch('/admin/doctors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(doctor)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Doctor added successfully!');
+            loadDoctors();
+        });
+    }
+
+    function deleteDoctor(id) {
+        fetch(`/admin/doctors/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Doctor deleted successfully!');
+            loadDoctors();
+        });
+    }
+
+    function loadAppointments() {
+        fetch('/admin/appointments')
+            .then(response => response.json())
+            .then(data => {
+                const appointmentTableBody = document.querySelector('#appointmentTable tbody');
+                appointmentTableBody.innerHTML = '';
+                data.forEach(appointment => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${appointment.id}</td>
+                        <td>${appointment.doctor_id}</td>
+                        <td>${appointment.patient_id}</td>
+                        <td>${appointment.date}</td>
+                        <td>${appointment.time}</td>
+                    `;
+                    appointmentTableBody.appendChild(row);
+                });
+            });
+    }
+
+    function logout() {
+        fetch('/admin/logout')
+            .then(() => {
+                alert('Logged out successfully');
+                window.location.href = '/admin/login';
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        loadDoctors();
+        loadAppointments();
+    });
+</script>
+
+</body>
+</html>

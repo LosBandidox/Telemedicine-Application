@@ -1,0 +1,170 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    background-color: #4f4caf;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    background-color: #333;
+    padding: 10px;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    display: flex;
+    margin: 20px;
+}
+
+/* Ensures content and sidebar stay side by side */
+#content {
+    flex: 3;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+    background-color: #f1f1f1;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px;
+}
+
+footer .social-media a {
+    color: white;
+    margin-left: 10px;
+    text-decoration: none;
+}
+
+/* Add styles for the form summary section */
+#formSummary {
+    margin-top: 20px;
+}
+
+#summary {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Appointment Booking */
+#appointmentDetails {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+/* Profile Management and Appointment History */
+#profileForm,
+#appointmentHistory,
+#appointmentSummary,
+#scheduleForm {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+
+/* Responsive Layout */
+@media screen and (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    /* Keep sidebar and content side by side on medium screens */
+    main {
+        flex-direction: row;
+    }
+
+    /* On smaller screens (mobile), allow the sidebar to move below the content */
+    @media screen and (max-width: 480px) {
+        main {
+            flex-direction: column;
+        }
+
+        nav ul {
+            display: none;
+        }
+
+        nav::before {
+            content: "☰ Menu";
+            color: white;
+            display: block;
+            text-align: center;
+            background-color: #333;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        nav.active ul {
+            display: block;
+        }
+    }
+}
+
+/* Additional styles for forms */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="radio"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #4f4caf;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #3e3e87;
+}
+
+/* Quick Links in Sidebar */
+.sidebar ul {
+    padding: 0;
+}
+
+.sidebar ul li {
+    list-style: none;
+    margin-bottom: 10px;
+}
+
+.sidebar input[type="search"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Profile</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Telemedicine - Manage Profile</h1>
+    </header>
+
+    <main>
+        <section id="content">
+            <form id="profileForm" onsubmit="return updateProfile()">
+                <h3>Update Personal Information</h3>
+
+                <label for="name">Name:</label><br>
+                <input type="text" id="profileName" name="name"><br><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" id="profileEmail" name="email"><br><br>
+
+                <label for="age">Age:</label><br>
+                <input type="number" id="profileAge" name="age"><br><br>
+
+                <label for="gender">Gender:</label><br>
+                <input type="radio" id="male" name="profileGender" value="male">
+                <label for="male">Male</label>
+                <input type="radio" id="female" name="profileGender" value="female">
+                <label for="female">Female</label><br><br>
+
+                <input type="submit" value="Update Profile">
+            </form>
+
+            <section id="appointmentHistory">
+                <h3>Appointment History</h3>
+                <ul id="historyList">
+                    <!-- Appointment history items will be added here by JavaScript -->
+                </ul>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
